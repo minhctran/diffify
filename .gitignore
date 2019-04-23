@@ -1,4 +1,7 @@
-*.pdf
+# For python
+__pycache__/
+
+# LaTeX  
 *.aux
 *.glo
 *.idx

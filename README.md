@@ -5,7 +5,7 @@ Flatten and make a LaTeX diff file between the most recent git commit, i.e. `mas
 Simply download everything. For a quick start, check out `example.py`.
 
 ## Prerequisites 
-We `latexdiff` to generate the diff file. For instructions on how to install and use `latexdiff`, see [here](https://www.overleaf.com/learn/latex/Articles/Using_Latexdiff_For_Marking_Changes_To_Tex_Documents).
+We use `latexdiff` to generate the diff file. For instructions on how to install and use `latexdiff`, see [here](https://www.overleaf.com/learn/latex/Articles/Using_Latexdiff_For_Marking_Changes_To_Tex_Documents).
 
 **Tip:** If you have trouble with installing or using `latexdiff`, the script also generates flattened versions of the TeX files. Set `clean_up = False` (See `example.py`) to keep these files, then use an online tool, such as [this one](https://3142.nl/latex-diff/), to generate the diff file. 
 
@@ -31,3 +31,5 @@ diffify(
         clean_up = True) # Clean the temp LaTeX files. Keep only the diff PDF
 ```
 **Tip:** You can also use ``diffify`` to flatten the TeX files by simply setting `old_ver` to any commit, e.g. `master`, and `clean_up = False` to keep the flattened files.
+
+

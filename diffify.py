@@ -82,9 +82,9 @@ def pathSplit(s):
 #    print(s[slashPos[-1]+1:])
 
 
-def diffify(mainfile, old_ver, make_pdf = True, clean_up = True):
+def diffify(main_path, old_ver, new_ver='master', make_pdf = True, clean_up = True):
     ## move to the project folder
-    dir_name, fin_name = pathSplit(mainfile)
+    dir_name, fin_name = pathSplit(main_path)
     try:    
         dir_path = os.path.dirname(os.path.realpath(__file__))+'/'
     except:
@@ -93,18 +93,18 @@ def diffify(mainfile, old_ver, make_pdf = True, clean_up = True):
     
     ## name old version, current version and diff files
     flattenedOldFileName = fin_name[:-4]+'-flat-'+old_ver[:6]+'.tex'
-    flattenedNewFileName = fin_name[:-4]+'-flat-HEAD.tex'
-    diffFileName = fin_name[:-4]+'-diff-'+old_ver[:6]+'.tex'
+    flattenedNewFileName = fin_name[:-4]+'-flat-'+new_ver[:6]+'.tex'
+    diffFileName = fin_name[:-4]+'-diff-'+old_ver[:6]+'-vs-'+new_ver[:6]+'.tex'
     
     ### flatten the old version
     flatten(fin_name, flattenedOldFileName, commit=old_ver)
     
     ### flatten the current version
-    flatten(fin_name, flattenedNewFileName)
+    flatten(fin_name, flattenedNewFileName, commit=new_ver)
     
     ### Make a diff file
     command = 'latexdiff '+flattenedOldFileName+' '+flattenedNewFileName+' > '+diffFileName
-    myCommand(command,stdout = PIPE, stderr = PIPE, shell=True)
+    myCommand(command, stdout=PIPE, stderr=PIPE, shell=True)
     
     ### Compile the diff file is make_pdf = True
     if make_pdf:

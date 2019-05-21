@@ -102,7 +102,7 @@ def change_markup_type(file_name, style_add='{\\protect\\color{blue} #1}', style
 
 
 def diffify(main_path, old_ver, new_ver='master', make_pdf=True, clean_up=True,
-            style_add='{\\protect\\color{blue} #1}', style_del=''):
+            style_add='{\\protect\\color{blue} #1}', style_del='{\\protect\\color{red} \\sout{#1}}'):
     ## move to the project folder
     dir_name, fin_name = pathSplit(main_path)
     try:    

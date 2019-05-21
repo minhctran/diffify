@@ -9,7 +9,7 @@ diffify(
         new_ver='master',                                       # [Optional] new commit, default value is 'master'
         make_pdf=True,                                          # Make a pdf from the diff file.
                                                                 # May throw an error if latexpdf is not properly setup
-        clean_up=True)                                          # Clean the temp LaTeX files. Keep only the diff PDF
+        clean_up=False)                                          # Clean the temp LaTeX files. Keep only the diff PDF
 
 
 

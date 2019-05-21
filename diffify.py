@@ -82,7 +82,7 @@ def pathSplit(s):
 #    print(s[slashPos[-1]+1:])
 
 
-def diffify(main_path, old_ver, new_ver='master', make_pdf = True, clean_up = True):
+def diffify(main_path, old_ver, new_ver='master', make_pdf = True, clean_up=True):
     ## move to the project folder
     dir_name, fin_name = pathSplit(main_path)
     try:    

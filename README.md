@@ -27,9 +27,14 @@ Call `diffify()` to make the diff file:
 diffify(
         main_path,
         old_ver,
-        make_pdf = True, # Make a pdf from the diff file. May throw an error if latexpdf is not properly setup
-        clean_up = True) # Clean the temp LaTeX files. Keep only the diff PDF
+        new_ver = 'master'      # Can change 'master' to a different commit
+        make_pdf = True,        # Make a pdf from the diff file. May throw an error if latexpdf is not properly setup
+        clean_up = True)        # Clean the temp LaTeX files. Keep only the diff PDF
 ```
 **Tip:** You can also use ``diffify`` to flatten the TeX files by simply setting `old_ver` to any commit, e.g. `master`, and `clean_up = False` to keep the flattened files.
 
+## Recent changes: 
+
+* Can customize the diff markup, e.g. color, strikeout, etc. See `example.py` for more details  
+* Can change 'master' to a different commit.
 

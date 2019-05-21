@@ -117,8 +117,9 @@ def diffify(main_path, old_ver, new_ver='master', make_pdf = True, clean_up=True
     print('Finished!')
 
 
-#diffify(need_input=False,make_pdf=False,clean_up=False)
-
+def change_markup_type(filename):
+    print(filename)
+    return True
 
 
 

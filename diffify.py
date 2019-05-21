@@ -82,7 +82,27 @@ def pathSplit(s):
 #    print(s[slashPos[-1]+1:])
 
 
-def diffify(main_path, old_ver, new_ver='master', make_pdf = True, clean_up=True):
+def change_markup_type(file_name, style_add='{\\protect\\color{blue} #1}', style_del=''):
+    fin = open(file_name, 'r')
+    fout = open(file_name+'.txt', 'w')
+    for line in fin:
+        if '\\providecommand{\\DIFdel}[1]{{\\protect\\color{red}\\sout{#1}}}' in line:
+            fout.write('\\providecommand{\\DIFdel}[1]{'+style_del+'}                      %DIF PREAMBLE \n')
+        elif '\providecommand{\\DIFadd}[1]{{\\protect\\color{blue}\\uwave{#1}}}' in line:
+            fout.write('\\providecommand{\\DIFadd}[1]{'+style_add+'}          %DIF PREAMBLE \n')
+        else:
+            fout.write(line)
+    fin.close()
+    fout.close()
+    # Remove the old file and rename the new file to .tex
+    import os
+    os.remove(file_name)
+    os.rename(file_name+'.txt', file_name)
+    return True
+
+
+def diffify(main_path, old_ver, new_ver='master', make_pdf=True, clean_up=True,
+            style_add='{\\protect\\color{blue} #1}', style_del=''):
     ## move to the project folder
     dir_name, fin_name = pathSplit(main_path)
     try:    
@@ -105,7 +125,10 @@ def diffify(main_path, old_ver, new_ver='master', make_pdf = True, clean_up=True
     ### Make a diff file
     command = 'latexdiff '+flattenedOldFileName+' '+flattenedNewFileName+' > '+diffFileName
     myCommand(command, stdout=PIPE, stderr=PIPE, shell=True)
-    
+
+    ### Change markup styles
+    change_markup_type(diffFileName, style_add, style_del)
+
     ### Compile the diff file is make_pdf = True
     if make_pdf:
         pdflatex(diffFileName)
@@ -117,9 +140,7 @@ def diffify(main_path, old_ver, new_ver='master', make_pdf = True, clean_up=True
     print('Finished!')
 
 
-def change_markup_type(filename):
-    print(filename)
-    return True
+
 
 
 

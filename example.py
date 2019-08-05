@@ -5,9 +5,9 @@ from diffify import diffify
 # Make a diff file
 diffify(
         # Path to the main file
-        main_path='example/main.tex',
+        main_path='/Users/congminhc1/Research/papers/heating-power-law/main.tex',
         # old commit to be compared,
-        old_ver='4a9379f25c69ce2a0879f76198f3d78239e3fd30',
+        old_ver='59367a7c0ba958944e53ee6a12750a5a59fc8e71',
         # [Optional] new commit, default value is 'master'
         new_ver='master'
         # [Optional] Make a pdf from the diff file. May throw an error if latexpdf is not properly setup

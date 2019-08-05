@@ -4,10 +4,12 @@ from subprocess import PIPE
 import os
 import time
 
+def isComment(line):
+    return line.strip()[0]=='%'
 
 def flattenFile(filein, fileout):
     for line in filein:
-        if '\input' in line:
+        if ('\input' in line and not isComment(line)) :
             sub_name = line.strip()
             sub_name = sub_name[7:-1]
             fsub = open(sub_name+'.tex', 'r')
@@ -107,9 +109,11 @@ def diffify(main_path, old_ver, new_ver='master', make_pdf=True, clean_up=True,
     dir_name, fin_name = pathSplit(main_path)
     try:    
         dir_path = os.path.dirname(os.path.realpath(__file__))+'/'
+        # dir_path = ''
     except:
         dir_path = ''
-    os.chdir(dir_path+dir_name)
+    print(dir_path)
+    os.chdir(dir_name)
     
     ## name old version, current version and diff files
     flattenedOldFileName = fin_name[:-4]+'-flat-'+old_ver[:6]+'.tex'

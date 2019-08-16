@@ -5,7 +5,10 @@ import os
 import time
 
 def isComment(line):
-    return line.strip()[0]=='%'
+    if len(line.strip())>0:
+        return line.strip()[0]=='%'
+    else:
+        return False
 
 def flattenFile(filein, fileout):
     for line in filein:
@@ -16,7 +19,7 @@ def flattenFile(filein, fileout):
             flattenFile(fsub, fileout)
             fsub.close()
             print('Pulling from '+sub_name+'.tex')
-        elif ('%!TEX' not in line):
+        elif (not isComment(line)):
             fileout.write(line)
 
 

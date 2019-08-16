@@ -19,6 +19,8 @@ diffify(
         # style_add='{\\protect\\color{blue} #1}',
         # [Optional] markup style for DEL changes, default = '{\\protect\\color{red} \\sout{#1}}'
         # style_del='{}'
+        # [Optional] delete LaTeX comments? Set no_comments to True to remove LaTeX comments
+        # no_comments = False
         )
 
 

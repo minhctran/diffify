@@ -10,7 +10,7 @@ def isComment(line):
     else:
         return False
 
-def flattenFile(filein, fileout):
+def flattenFile(filein, fileout, no_comments = False):
     for line in filein:
         if ('\input' in line and not isComment(line)) :
             sub_name = line.strip()
@@ -19,7 +19,7 @@ def flattenFile(filein, fileout):
             flattenFile(fsub, fileout)
             fsub.close()
             print('Pulling from '+sub_name+'.tex')
-        elif (not isComment(line)):
+        elif ((not no_comments) or (not isComment(line))):
             fileout.write(line)
 
 
@@ -29,13 +29,13 @@ def countdown(n):
         time.sleep(1)
 
 
-def flatten(fin_name, fout_name, commit='master'):
+def flatten(fin_name, fout_name, commit='master',no_comments = False):
     if commit != 'master':
         myCommand(['git', 'checkout', commit])
     fin = open(fin_name, 'r')
     fout = open(fout_name, 'w')
     print('Flattening '+fin_name+' into '+fout_name)
-    flattenFile(fin, fout)
+    flattenFile(fin, fout,no_comments = no_comments)
     fin.close()
     fout.close()
     if commit != 'master':
@@ -106,8 +106,15 @@ def change_markup_type(file_name, style_add='{\\protect\\color{blue} #1}', style
     return True
 
 
-def diffify(main_path, old_ver, new_ver='master', make_pdf=True, clean_up=True,
-            style_add='{\\protect\\color{blue} #1}', style_del='{\\protect\\color{red} \\sout{#1}}'):
+def diffify(
+    main_path, 
+    old_ver, 
+    new_ver ='master', 
+    make_pdf =True, 
+    clean_up =True,
+    style_add ='{\\protect\\color{blue} #1}', 
+    style_del ='{\\protect\\color{red} \\sout{#1}}',
+    no_comments = False):
     ## move to the project folder
     dir_name, fin_name = pathSplit(main_path)
     try:    
@@ -124,10 +131,10 @@ def diffify(main_path, old_ver, new_ver='master', make_pdf=True, clean_up=True,
     diffFileName = fin_name[:-4]+'-diff-'+old_ver[:6]+'-vs-'+new_ver[:6]+'.tex'
     
     ### flatten the old version
-    flatten(fin_name, flattenedOldFileName, commit=old_ver)
+    flatten(fin_name, flattenedOldFileName, commit=old_ver, no_comments = no_comments)
     
     ### flatten the current version
-    flatten(fin_name, flattenedNewFileName, commit=new_ver)
+    flatten(fin_name, flattenedNewFileName, commit=new_ver, no_comments = no_comments)
     
     ### Make a diff file
     command = 'latexdiff '+flattenedOldFileName+' '+flattenedNewFileName+' > '+diffFileName

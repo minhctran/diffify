@@ -37,4 +37,4 @@ diffify(
 
 * Can customize the diff markup, e.g. color, strikeout, etc. See `example.py` for more details  
 * Can change 'master' to a different commit.
-
+* Add an option to remove comments from the flattened file. Should be used with care.

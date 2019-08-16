@@ -10,13 +10,13 @@ def isComment(line):
     else:
         return False
 
-def flattenFile(filein, fileout, no_comments = False):
+def flattenFile(filein, fileout, no_comments):
     for line in filein:
         if ('\input' in line and not isComment(line)) :
             sub_name = line.strip()
             sub_name = sub_name[7:-1]
             fsub = open(sub_name+'.tex', 'r')
-            flattenFile(fsub, fileout)
+            flattenFile(fsub, fileout,no_comments)
             fsub.close()
             print('Pulling from '+sub_name+'.tex')
         elif ((not no_comments) or (not isComment(line))):
@@ -35,7 +35,7 @@ def flatten(fin_name, fout_name, commit='master',no_comments = False):
     fin = open(fin_name, 'r')
     fout = open(fout_name, 'w')
     print('Flattening '+fin_name+' into '+fout_name)
-    flattenFile(fin, fout,no_comments = no_comments)
+    flattenFile(fin, fout,no_comments)
     fin.close()
     fout.close()
     if commit != 'master':

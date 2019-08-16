@@ -16,7 +16,7 @@ def flattenFile(filein, fileout):
             flattenFile(fsub, fileout)
             fsub.close()
             print('Pulling from '+sub_name+'.tex')
-        else:
+        elif ('%!TEX' not in line):
             fileout.write(line)
 
 

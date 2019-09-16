@@ -91,9 +91,9 @@ def change_markup_type(file_name, style_add='{\\protect\\color{blue} #1}', style
     fin = open(file_name, 'r')
     fout = open(file_name+'.txt', 'w')
     for line in fin:
-        if '\\providecommand{\\DIFdel}[1]{{\\protect\\color{red}\\sout{#1}}}' in line:
+        if '\\providecommand{\\DIFdel}[1]' in line:
             fout.write('\\providecommand{\\DIFdel}[1]{'+style_del+'}                      %DIF PREAMBLE \n')
-        elif '\providecommand{\\DIFadd}[1]{{\\protect\\color{blue}\\uwave{#1}}}' in line:
+        elif '\\providecommand{\\DIFadd}[1]' in line:
             fout.write('\\providecommand{\\DIFadd}[1]{'+style_add+'}          %DIF PREAMBLE \n')
         else:
             fout.write(line)

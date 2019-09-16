@@ -126,8 +126,10 @@ def diffify(
     os.chdir(dir_name)
     
     ## name old version, current version and diff files
-    flattenedOldFileName = fin_name[:-4]+'-flat-'+old_ver[:6]+'.tex'
-    flattenedNewFileName = fin_name[:-4]+'-flat-'+new_ver[:6]+'.tex'
+    import random
+    random_tail = '-'+str(random.randint(1,1001)) ## Add a random tail to the file name to avoid having the same file name as something already in the repo
+    flattenedOldFileName = fin_name[:-4]+'-flat-'+old_ver[:6]+random_tail+'.tex'
+    flattenedNewFileName = fin_name[:-4]+'-flat-'+new_ver[:6]+random_tail+'.tex'
     diffFileName = fin_name[:-4]+'-diff-'+old_ver[:6]+'-vs-'+new_ver[:6]+'.tex'
     
     ### flatten the old version
